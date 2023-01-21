@@ -6,7 +6,8 @@ import 'package:marketdo_flutter/models/user_model.dart';
 import 'package:marketdo_flutter/widgets/dialogs.dart';
 
 class Services {
-  static String baseUrl = 'http://60.60.2.137:2023';
+  // static String baseUrl = 'http://60.60.2.137:2023';
+  static String baseUrl = 'https://marketdo-godinez.onrender.com';
 
   static addUser(
     Map mapBody,
@@ -57,9 +58,10 @@ class Services {
             users.add(
               User(
                 id: value['_id'],
-                name: value['name'],
-                email: value['email'],
-                password: value['password'],
+                firstName: value['firstName'],
+                middleName: value['middleName'],
+                lastName: value['lastName'],
+                username: value['username'],
               ),
             ),
           },
@@ -120,7 +122,7 @@ class Services {
 
   static deleteUser(BuildContext context, String id) async {
     try {
-      final res = await http.patch(Uri.parse('$baseUrl/users/deleteUser/$id'));
+      final res = await http.post(Uri.parse('$baseUrl/users/deleteUser/$id'));
       var data = jsonDecode(res.body.toString());
 
       if (data['success'] == true) {
